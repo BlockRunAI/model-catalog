@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blockrun.ai/schemas/model-catalog/v1.json",
+  "title": "BlockRun Model Catalog v1",
+  "type": "object",
+  "required": ["schema_version", "catalog_version", "observed_at", "sources", "models"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "catalog_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}\\.[1-9][0-9]*$" },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "sources": {
+      "type": "object",
+      "required": ["base", "solana"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "type": "string", "format": "uri" },
+        "solana": { "type": "string", "format": "uri" }
+      }
+    },
+    "models": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/model" }
+    }
+  },
+  "$defs": {
+    "networkEntry": {
+      "type": "object",
+      "required": ["listed", "categories", "billing_mode", "pricing"],
+      "additionalProperties": false,
+      "properties": {
+        "listed": { "type": "boolean" },
+        "categories": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "billing_mode": { "type": "string", "minLength": 1 },
+        "pricing": { "type": "object" },
+        "context_window": { "type": "integer", "minimum": 1 },
+        "max_output": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["id", "name", "provider", "description", "lifecycle", "declared_capabilities", "aliases", "redirects", "networks"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._+-]*/[^\\s]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "lifecycle": { "enum": ["active", "preview", "deprecated", "sunset"] },
+        "declared_capabilities": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "redirects": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "networks": {
+          "type": "object",
+          "required": ["base", "solana"],
+          "additionalProperties": false,
+          "properties": {
+            "base": { "$ref": "#/$defs/networkEntry" },
+            "solana": { "$ref": "#/$defs/networkEntry" }
+          }
+        }
+      }
+    }
+  }
+}

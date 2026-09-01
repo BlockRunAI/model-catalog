@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "catalog_version": "2026.09.01.1",
+  "artifacts": {
+    "catalog.v1.json": {
+      "sha256": "5d95501a111d5ebe8d8610835e02ef2bd31788c745a548aa7407b98dab3c4abc",
+      "bytes": 106565
+    },
+    "picker-policy.v1.json": {
+      "sha256": "0f28f17f8284bb30910bb867f818422ef4858b5d20e283a525580574602ea2ed",
+      "bytes": 1226
+    },
+    "router-policy.v1.json": {
+      "sha256": "6831ec2637a9d65aa4e2cc1c56e1b63a457a43b97b0423a24e5fcade689f2928",
+      "bytes": 991
+    }
+  }
+}

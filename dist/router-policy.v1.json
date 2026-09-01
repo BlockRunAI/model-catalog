@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026.09.01.1",
+  "catalog_version": "2026.09.01.1",
+  "status": "draft",
+  "description": "Prototype model-specific policy for Router Core. Do not consume in production until benchmark review is complete.",
+  "candidate_sets": {
+    "simple": [
+      "qwen/qwen3.7-flash",
+      "google/gemini-3.5-flash-lite",
+      "minimax/minimax-m3",
+      "cohere/north-mini-code"
+    ],
+    "medium": [
+      "openai/gpt-5.6-luna",
+      "google/gemini-3.6-flash",
+      "moonshot/kimi-k3",
+      "qwen/qwen3.8-flash"
+    ],
+    "complex": [
+      "openai/gpt-5.6-terra",
+      "openai/gpt-5.6-sol",
+      "anthropic/claude-sonnet-5",
+      "anthropic/claude-opus-5"
+    ],
+    "reasoning": [
+      "xai/grok-4.5",
+      "deepseek/deepseek-v4-pro",
+      "google/gemini-3.1-pro",
+      "openai/gpt-5.6-sol"
+    ],
+    "agentic": [
+      "openai/gpt-5.6-terra",
+      "anthropic/claude-sonnet-5",
+      "xai/grok-4.5",
+      "moonshot/kimi-k3"
+    ]
+  }
+}
