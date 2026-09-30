@@ -1,18 +1,22 @@
 {
   "schema_version": 1,
-  "catalog_version": "2026.09.01.1",
+  "catalog_version": "2026.09.29.1",
   "artifacts": {
     "catalog.v1.json": {
-      "sha256": "5d95501a111d5ebe8d8610835e02ef2bd31788c745a548aa7407b98dab3c4abc",
-      "bytes": 106565
+      "sha256": "29c7cc6eb344cc2834b85f1f3ebe4fae5b5d8094f031cd5016c20209740ee5ac",
+      "bytes": 138398
     },
     "picker-policy.v1.json": {
-      "sha256": "0f28f17f8284bb30910bb867f818422ef4858b5d20e283a525580574602ea2ed",
-      "bytes": 1226
+      "sha256": "3137996929b64f0a3efbade20b687ab86cc194cd2a5042d6f17122d2e2cf6887",
+      "bytes": 17610
     },
     "router-policy.v1.json": {
-      "sha256": "6831ec2637a9d65aa4e2cc1c56e1b63a457a43b97b0423a24e5fcade689f2928",
-      "bytes": 991
+      "sha256": "44116e820380d9f9904dd40302ca622e58401b0f2151403a3d74c15a990f08fb",
+      "bytes": 1447
+    },
+    "snapshot.v1.json": {
+      "sha256": "3888a2c2a8797fccfe97e3148310294c9a9f6126612eedf3f801106a13935164",
+      "bytes": 169434
     }
   }
 }

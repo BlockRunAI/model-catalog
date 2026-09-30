@@ -21,7 +21,7 @@ function rows(body) {
 
 function networkEntry(model) {
   return {
-    listed: true,
+    listed: model.available !== false,
     categories: [...new Set(model.categories ?? [])].sort(),
     billing_mode: model.billing_mode ?? "unknown",
     pricing: model.pricing ?? {},

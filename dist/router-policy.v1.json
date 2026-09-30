@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
-  "policy_version": "2026.09.01.1",
-  "catalog_version": "2026.09.01.1",
+  "policy_version": "2026.09.29.1",
+  "catalog_version": "2026.09.29.1",
+  "default_network": "solana",
   "status": "draft",
   "description": "Prototype model-specific policy for Router Core. Do not consume in production until benchmark review is complete.",
   "candidate_sets": {
@@ -35,5 +36,21 @@
       "xai/grok-4.5",
       "moonshot/kimi-k3"
     ]
-  }
+  },
+  "free_candidate_sets": {
+    "coding": [
+      "cohere/north-mini-code",
+      "poolside/laguna-xs-2.1",
+      "nvidia/nemotron-3.5-lightning"
+    ],
+    "general": [
+      "nvidia/nemotron-3.5-lightning",
+      "nvidia/nemotron-3-ultra-550b"
+    ],
+    "vision": [
+      "nvidia/llama-3.2-11b-vision",
+      "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"
+    ]
+  },
+  "classifier_model": "nvidia/nemotron-3.5-lightning"
 }

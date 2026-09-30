@@ -1,19 +1,26 @@
 {
   "name": "@blockrun/model-catalog",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Versioned model metadata and picker/router policy shared by BlockRun products.",
   "type": "module",
   "files": [
     "dist",
     "schema",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "runtime",
+    "scripts/lib.mjs"
   ],
   "exports": {
     "./catalog": "./dist/catalog.v1.json",
     "./picker-policy": "./dist/picker-policy.v1.json",
     "./router-policy": "./dist/router-policy.v1.json",
-    "./manifest": "./dist/manifest.json"
+    "./manifest": "./dist/manifest.json",
+    ".": {
+      "types": "./runtime/index.d.ts",
+      "default": "./runtime/index.js"
+    },
+    "./snapshot": "./dist/snapshot.v1.json"
   },
   "scripts": {
     "validate": "node scripts/validate.mjs",

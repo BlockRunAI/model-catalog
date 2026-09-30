@@ -1,0 +1,15 @@
+{
+  "clawrouter_commit": "9ab5b7c11352e39d79c6efdae390e8799ab88cc6",
+  "clawrouter_date": "2026-09-29T14:50:59Z",
+  "catalog_version": "2026.09.29.1",
+  "base_models": 110,
+  "solana_models": 113,
+  "solana_chat_models": 79,
+  "recommended_models": 47,
+  "clawrouter_entries_excluded": [
+    "openai/gpt-5.5-pro",
+    "openai/gpt-5.4-pro",
+    "tencent/hy3",
+    "deepseek/deepseek-reasoner"
+  ]
+}

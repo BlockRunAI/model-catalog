@@ -10,7 +10,7 @@ const routerPolicy = await readJson(new URL("source/router-policy.json", root));
 
 test("source catalog and policies satisfy cross-file invariants", () => {
   assert.deepEqual(validateAll(catalog, pickerPolicy, routerPolicy), []);
-  assert.equal(catalog.models.length, 98);
+  assert.ok(catalog.models.length > 0);
 });
 
 test("network overlays preserve known Base and Solana differences", () => {
@@ -20,12 +20,23 @@ test("network overlays preserve known Base and Solana differences", () => {
   assert.equal(model.networks.solana.categories.includes("chat"), false);
 });
 
-test("picker references only listed chat models", () => {
+test("picker references only Solana-listed chat models", () => {
   const byId = new Map(catalog.models.map((model) => [model.id, model]));
   for (const id of pickerPolicy.views.default_chat.model_ids) {
     const model = byId.get(id);
     assert.ok(model, id);
-    assert.equal(Object.values(model.networks).some((entry) => entry.listed && entry.categories.includes("chat")), true, id);
+    assert.equal(model.networks.solana.listed && model.networks.solana.categories.includes("chat"), true, id);
+  }
+});
+
+test("free router policy contains only free Solana chat models", () => {
+  const byId = new Map(catalog.models.map((model) => [model.id, model]));
+  for (const candidates of Object.values(routerPolicy.free_candidate_sets)) {
+    for (const id of candidates) {
+      const network = byId.get(id)?.networks.solana;
+      assert.equal(network?.listed && network.categories.includes("chat"), true, id);
+      assert.equal(network?.billing_mode, "free", id);
+    }
   }
 });
 

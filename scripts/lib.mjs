@@ -26,7 +26,7 @@ export function validateAll(catalog, pickerPolicy, routerPolicy) {
   const aliases = new Set();
   for (const [index, model] of (catalog.models ?? []).entries()) {
     const at = `catalog.models[${index}]`;
-    if (typeof model.id !== "string" || !model.id.includes("/")) errors.push(`${at}.id must be namespaced`);
+    if (typeof model.id !== "string" || !/^[a-zA-Z0-9][a-zA-Z0-9._+/-]*$/.test(model.id)) errors.push(`${at}.id must be a public model identifier`);
     if (ids.has(model.id)) errors.push(`duplicate model id: ${model.id}`);
     ids.add(model.id);
     if (typeof model.name !== "string" || model.name.length === 0) errors.push(`${at}.name must be non-empty`);
@@ -56,26 +56,64 @@ export function validateAll(catalog, pickerPolicy, routerPolicy) {
     }
   }
 
+  const byId = new Map((catalog.models ?? []).map((model) => [model.id, model]));
+  const virtualEntries = new Set();
+  for (const view of Object.values(pickerPolicy.views ?? {})) {
+    for (const id of view.virtual_entries ?? []) virtualEntries.add(id);
+  }
+  const isSolanaChat = (id) => {
+    const network = byId.get(id)?.networks?.solana;
+    return Boolean(network?.listed && network.categories.includes("chat"));
+  };
+
+  if (pickerPolicy.default_network !== "solana") errors.push("picker policy default_network must be solana");
   for (const [name, view] of Object.entries(pickerPolicy.views ?? {})) {
     const seen = new Set();
     for (const id of view.model_ids ?? []) {
       if (!ids.has(id)) errors.push(`picker view ${name} references missing model ${id}`);
       if (seen.has(id)) errors.push(`picker view ${name} repeats ${id}`);
       seen.add(id);
-      const model = (catalog.models ?? []).find((candidate) => candidate.id === id);
-      if (model && !Object.values(model.networks).some((entry) => entry.listed && entry.categories.includes("chat"))) {
-        errors.push(`picker view ${name} references non-chat model ${id}`);
+      if (ids.has(id) && !isSolanaChat(id)) errors.push(`picker view ${name} references model unavailable for Solana chat: ${id}`);
+    }
+    const grouped = new Set();
+    for (const group of view.groups ?? []) {
+      for (const id of group.model_ids ?? []) {
+        if (!seen.has(id)) errors.push(`picker group ${group.id} references model outside view ${name}: ${id}`);
+        if (grouped.has(id)) errors.push(`picker view ${name} groups repeat ${id}`);
+        grouped.add(id);
       }
+    }
+    if ((view.groups ?? []).length > 0) {
+      for (const id of seen) if (!grouped.has(id)) errors.push(`picker view ${name} does not group ${id}`);
+    }
+    for (const [shortcut, target] of Object.entries(view.shortcuts ?? {})) {
+      if (!isSolanaChat(target) && !virtualEntries.has(target)) errors.push(`picker shortcut ${shortcut} has invalid target ${target}`);
     }
   }
 
+  if (routerPolicy.default_network !== "solana") errors.push("router policy default_network must be solana");
   for (const [name, candidates] of Object.entries(routerPolicy.candidate_sets ?? {})) {
     const seen = new Set();
     for (const id of candidates) {
       if (!ids.has(id)) errors.push(`router candidate set ${name} references missing model ${id}`);
       if (seen.has(id)) errors.push(`router candidate set ${name} repeats ${id}`);
+      if (ids.has(id) && !isSolanaChat(id)) errors.push(`router candidate set ${name} references model unavailable for Solana chat: ${id}`);
       seen.add(id);
     }
+  }
+  for (const [name, candidates] of Object.entries(routerPolicy.free_candidate_sets ?? {})) {
+    const seen = new Set();
+    for (const id of candidates) {
+      const model = byId.get(id);
+      if (!model) errors.push(`free router candidate set ${name} references missing model ${id}`);
+      if (seen.has(id)) errors.push(`free router candidate set ${name} repeats ${id}`);
+      if (model && !isSolanaChat(id)) errors.push(`free router candidate set ${name} references model unavailable for Solana chat: ${id}`);
+      if (model?.networks?.solana?.billing_mode !== "free") errors.push(`free router candidate set ${name} references paid model ${id}`);
+      seen.add(id);
+    }
+  }
+  if (!isSolanaChat(routerPolicy.classifier_model)) {
+    errors.push(`router classifier_model is unavailable for Solana chat: ${routerPolicy.classifier_model}`);
   }
 
   for (const [name, policy] of [["picker", pickerPolicy], ["router", routerPolicy]]) {

@@ -16,6 +16,7 @@ const artifacts = {
   "catalog.v1.json": stableJson(catalog),
   "picker-policy.v1.json": stableJson(pickerPolicy),
   "router-policy.v1.json": stableJson(routerPolicy),
+  "snapshot.v1.json": stableJson({ catalog, picker_policy: pickerPolicy, router_policy: routerPolicy }),
 };
 for (const [name, text] of Object.entries(artifacts)) {
   await writeFile(new URL(name, dist), text);
