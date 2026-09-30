@@ -57,7 +57,7 @@ Only public metadata belongs here. Do not add API keys, deployment names,
 provider account details, private failover topology, wallet information, or
 customer identifiers.
 
-## Runtime consumption (0.2.0 local pilot)
+## Runtime consumption (0.2.0)
 
 ```js
 import { createCatalogClient } from '@blockrun/model-catalog';
@@ -80,13 +80,17 @@ provide `catalogUrl`. The client validates the complete versioned snapshot,
 uses ETag for that endpoint, and intersects its picker policy with the live
 network catalog. Catalog/policy updates commit together only after the gateway
 read also succeeds. A local HTTP endpoint is supported for integration tests.
-There is no production snapshot hosting configured by this pilot.
+The public current snapshot is available at:
+`https://raw.githubusercontent.com/BlockRunAI/model-catalog/main/dist/snapshot.v1.json`.
+Pin the runtime package to an immutable Git commit or release tag; the current
+snapshot can advance independently after validated catalog changes merge.
 
-Franklin's local adapter reads `BLOCKRUN_MODEL_CATALOG_URL` for this endpoint.
-Its `RUNCODE_CHAIN` / session chain controls the network; the local Solana trial
-uses `RUNCODE_CHAIN=solana`. `FRANKLIN_CATALOG_OFFLINE=1` is provided for
-repeatable tests. The package link is currently `file:../model-catalog` and must
-be replaced by a published dependency before a Franklin npm release.
+Franklin's adapter supports `BLOCKRUN_MODEL_CATALOG_URL` for this endpoint.
+Its wallet mode uses `RUNCODE_CHAIN` / the session chain. API account mode
+uses the API gateway's own live catalog, with authentication handled only by
+the product adapter. `FRANKLIN_CATALOG_OFFLINE=1` supports repeatable tests.
+The package can be installed from a pinned GitHub archive without an npm
+registry release. This package contains no payment signing or settlement code.
 
 ## 2026-09-29 refresh
 
