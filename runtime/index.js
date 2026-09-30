@@ -101,19 +101,30 @@ export function createCatalogClient(options = {}) {
       if (!force && now() < expiresAt) return Promise.resolve(current());
       inflight = (async () => {
         try {
-          let nextSnapshot = snapshot;
-          let nextEtag = etag;
-          if (options.catalogUrl) {
-            const result = await json(options.catalogUrl, etag ? { 'If-None-Match': etag } : {});
-            if (!result.unchanged) { nextSnapshot = validateSnapshot(result.body); nextEtag = result.etag; }
-          }
-          const result = await json(options.gatewayUrl ?? gateways[network]);
-          if (result.unchanged) throw new Error('Unexpected gateway 304');
-          const nextModels = validateModels(result.body?.data).filter(m => m.available !== false);
+          // Policy and gateway rows are fetched concurrently and independently:
+          // an unreachable policy host must not cost clients the live gateway
+          // catalog, it only keeps the last good policy.
+          const [policy, gateway] = await Promise.allSettled([
+            options.catalogUrl
+              ? json(options.catalogUrl, etag ? { 'If-None-Match': etag } : {})
+                .then(result => result.unchanged ? { snapshot, etag } : { snapshot: validateSnapshot(result.body), etag: result.etag })
+              : Promise.resolve({ snapshot, etag }),
+            json(options.gatewayUrl ?? gateways[network]),
+          ]);
+          if (gateway.status === 'rejected') throw gateway.reason;
+          if (gateway.value.unchanged) throw new Error('Unexpected gateway 304');
+          const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false);
           if (!nextModels.length) throw new Error('No available models');
-          snapshot = nextSnapshot; models = nextModels; etag = nextEtag;
-          source = 'live'; lastError = undefined;
-          expiresAt = now() + (options.ttlMs ?? 300000);
+          models = nextModels; source = 'live';
+          if (policy.status === 'fulfilled') {
+            snapshot = policy.value.snapshot; etag = policy.value.etag;
+            lastError = undefined;
+            expiresAt = now() + (options.ttlMs ?? 300000);
+          } else {
+            const reason = policy.reason;
+            lastError = `Catalog policy: ${reason instanceof Error ? reason.message : String(reason)}`;
+            expiresAt = now() + Math.min(options.ttlMs ?? 300000, 15000);
+          }
         } catch (error) {
           lastError = error instanceof Error ? error.message : String(error);
           // Short backoff on errors, retaining the last good snapshot.
