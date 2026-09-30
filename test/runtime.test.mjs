@@ -78,6 +78,39 @@ test('snapshot updates are atomic and use ETag', async () => {
   failGateway = false;
   assert.equal((await client.refresh({ force: true })).version, '2026.09.29.2');
 });
+test('unreachable policy host still refreshes gateway rows and keeps last good policy', async () => {
+  let policyDown = false, clock = 0;
+  const id = snapshot.picker_policy.views.default_chat.model_ids[0];
+  const client = createCatalogClient({ ttlMs: 60000, now: () => clock, catalogUrl: 'https://catalog.test/snapshot.json', fetch: async url => {
+    if (String(url).includes('catalog.test')) {
+      if (policyDown) throw Error('fetch failed');
+      const next = structuredClone(snapshot);
+      next.picker_policy.views.default_chat.shortcuts.newalias = id;
+      return new Response(JSON.stringify(next), { headers: { etag: 'v1' } });
+    }
+    return response([row(id), row(policyDown ? 'test/after-outage' : 'test/before-outage')]);
+  } });
+  assert.equal((await client.refresh()).shortcuts.newalias, id);
+  policyDown = true;
+  const state = await client.refresh({ force: true });
+  assert.equal(state.source, 'live');
+  assert.match(state.lastError, /^Catalog policy: fetch failed/);
+  assert.ok(state.models.some(m => m.id === 'test/after-outage'), 'gateway rows still refresh');
+  assert.equal(state.shortcuts.newalias, id, 'last good policy retained');
+  clock = 15001; policyDown = false;
+  const recovered = await client.refresh();
+  assert.equal(recovered.lastError, undefined, 'policy retried on short backoff');
+});
+test('cold start with unreachable policy host uses bundled policy with live gateway rows', async () => {
+  const client = createCatalogClient({ catalogUrl: 'https://catalog.test/snapshot.json', fetch: async url => {
+    if (String(url).includes('catalog.test')) throw Error('blocked');
+    return response([row()]);
+  } });
+  const state = await client.refresh();
+  assert.equal(state.source, 'live');
+  assert.equal(state.version, snapshot.catalog.catalog_version);
+  assert.deepEqual(state.models.map(m => m.id), ['test/new-model']);
+});
 test('media entries survive for media clients but never enter chat picker', async () => {
   const client = createCatalogClient({ fetch: async () => response([row('test/image', { categories: ['image'], billing_mode: 'per_image', pricing: { per_image: 0.1 } }), row()]) });
   const state = await client.refresh();
