@@ -120,3 +120,39 @@ test('media entries survive for media clients but never enter chat picker', asyn
 test('non-namespaced public service IDs are accepted', () => {
   assert.equal(validateModels([row('openjev', { categories: ['judgment'], billing_mode: 'free', pricing: { per_call: 0 } })])[0].id, 'openjev');
 });
+
+for (const [name, corrupt] of Object.entries({
+  missingView: p => { delete p.views.default_chat; },
+  missingShortcuts: p => { delete p.views.default_chat.shortcuts; },
+  nullShortcuts: p => { p.views.default_chat.shortcuts = null; },
+  missingGroupModels: p => { delete p.views.default_chat.groups[0].model_ids; },
+  nonArrayGroups: p => { p.views.default_chat.groups = {}; },
+  invalidVirtualEntries: p => { p.views.default_chat.virtual_entries = 'blockrun/free'; },
+})) {
+  test(`malformed policy ${name} keeps last good policy and accepts live gateway updates`, async () => {
+    let bad = false, seenEtag;
+    const id = snapshot.picker_policy.views.default_chat.model_ids[0];
+    const client = createCatalogClient({ catalogUrl: 'https://catalog.test/snapshot.json', fetch: async (url, init) => {
+      if (String(url).includes('catalog.test')) {
+        seenEtag = init.headers['If-None-Match'];
+        const next = structuredClone(snapshot);
+        next.picker_policy.views.default_chat.shortcuts.savedalias = id;
+        if (bad) corrupt(next.picker_policy);
+        return new Response(JSON.stringify(next), { headers: { etag: bad ? 'bad' : 'good' } });
+      }
+      return response([row(id), row(bad ? 'test/fresh' : 'test/old')]);
+    } });
+    await client.refresh();
+    bad = true;
+    const state = await client.refresh({ force: true });
+    assert.match(state.lastError, /^Catalog policy:/);
+    assert.equal(state.source, 'live');
+    assert.equal(state.shortcuts.savedalias, id);
+    assert.ok(state.models.some(m => m.id === 'test/fresh'));
+    assert.deepEqual(client.current(), state, 'cached state remains readable');
+    await client.refresh({ force: true });
+    assert.equal(seenEtag, 'good', 'invalid policy does not advance ETag');
+    bad = false;
+    assert.equal((await client.refresh({ force: true })).lastError, undefined);
+  });
+}
