@@ -115,6 +115,9 @@ export function createCatalogClient(options = {}) {
           if (gateway.value.unchanged) throw new Error('Unexpected gateway 304');
           const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false);
           if (!nextModels.length) throw new Error('No available models');
+          // Check the complete candidate state before committing any cache fields.
+          // A projection failure must not poison current() or advance the ETag.
+          projectCatalog(nextModels, policy.status === 'fulfilled' ? policy.value.snapshot.picker_policy : snapshot.picker_policy);
           models = nextModels; source = 'live';
           if (policy.status === 'fulfilled') {
             snapshot = policy.value.snapshot; etag = policy.value.etag;

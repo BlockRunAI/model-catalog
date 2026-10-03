@@ -15,6 +15,29 @@ export function sha256(text) {
 
 export function validateAll(catalog, pickerPolicy, routerPolicy) {
   const errors = [];
+  // These fields are consumed by the runtime projection without defaults.
+  // Reject malformed policy before iterating it or allowing it into a cache.
+  const record = value => value !== null && typeof value === "object" && !Array.isArray(value);
+  const strings = value => Array.isArray(value) && value.every(item => typeof item === "string");
+  if (!record(pickerPolicy?.views) || !record(pickerPolicy.views.default_chat)) {
+    return ["picker policy views.default_chat must be an object"];
+  }
+  for (const [name, view] of Object.entries(pickerPolicy.views)) {
+    if (!record(view)) { errors.push(`picker view ${name} must be an object`); continue; }
+    for (const field of ["model_ids", "virtual_entries"]) {
+      if (!strings(view[field])) errors.push(`picker view ${name}.${field} must be an array of strings`);
+    }
+    if (!record(view.shortcuts) || !Object.values(view.shortcuts).every(target => typeof target === "string")) {
+      errors.push(`picker view ${name}.shortcuts must map names to strings`);
+    }
+    if (!Array.isArray(view.groups)) errors.push(`picker view ${name}.groups must be an array`);
+    else for (const group of view.groups) {
+      if (!record(group) || typeof group.id !== "string" || typeof group.title !== "string" || !strings(group.model_ids)) {
+        errors.push(`picker view ${name} has a malformed group`);
+      }
+    }
+  }
+  if (errors.length) return errors;
   if (catalog.schema_version !== 1) errors.push("catalog.schema_version must be 1");
   if (!/^\d{4}\.\d{2}\.\d{2}\.[1-9]\d*$/.test(catalog.catalog_version ?? "")) {
     errors.push("catalog.catalog_version must use YYYY.MM.DD.N");
