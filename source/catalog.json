@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "catalog_version": "2026.10.20.1",
-  "observed_at": "2026-10-20T04:12:23.000Z",
+  "catalog_version": "2026.10.20.2",
+  "observed_at": "2026-10-20T04:45:41.000Z",
   "sources": {
     "base": "https://blockrun.ai/api/v1/models?format=json",
     "solana": "https://sol.blockrun.ai/api/v1/models?format=json"
@@ -971,9 +971,9 @@
     },
     {
       "id": "deepseek/deepseek-chat",
-      "name": "DeepSeek V4 Flash Chat",
+      "name": "DeepSeek Chat (V4.1 Flash)",
       "provider": "deepseek",
-      "description": "Paid V4 Flash in non-thinking mode (1.6T-class quality at $0.14 in / $0.28 out). Production-grade reliability and 5MB request bodies.",
+      "description": "Compatibility id for DeepSeek V4.1 Flash in non-thinking mode ($0.14 in / $0.28 out) — same model, price and routing as deepseek/deepseek-v4.1-flash. Production-grade reliability and 5MB request bodies.",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1015,9 +1015,9 @@
     },
     {
       "id": "deepseek/deepseek-reasoner",
-      "name": "DeepSeek V4 Flash Reasoner",
+      "name": "DeepSeek Reasoner (V4.1 Flash)",
       "provider": "deepseek",
-      "description": "Paid V4 Flash in thinking mode for reasoning tasks. Same upstream as deepseek/deepseek-chat but with thinking enabled by default.",
+      "description": "Compatibility id for DeepSeek V4.1 Flash in thinking mode for reasoning tasks ($0.14 in / $0.28 out). Same upstream as deepseek/deepseek-v4.1-flash but with thinking enabled by default.",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1150,6 +1150,44 @@
           },
           "context_window": 1048576,
           "max_output": 65536
+        }
+      }
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "name": "DeepSeek V4.1 Flash",
+      "provider": "deepseek",
+      "description": "DeepSeek V4.1 Flash in non-thinking mode — 1M context at $0.14 in / $0.28 out. Production-grade reliability and 5MB request bodies.",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 0.14,
+            "output": 0.28,
+            "cache_read": 0.028
+          },
+          "context_window": 1048576,
+          "max_output": 65536
+        },
+        "solana": {
+          "listed": false,
+          "categories": [],
+          "billing_mode": "unavailable",
+          "pricing": {}
         }
       }
     },
@@ -2250,7 +2288,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": false,
+          "listed": true,
           "categories": [
             "chat",
             "coding",
@@ -4342,7 +4380,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": false,
+          "listed": true,
           "categories": [
             "chat",
             "coding"
