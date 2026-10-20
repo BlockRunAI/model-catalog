@@ -1,9 +1,9 @@
 {
   "clawrouter_commit": "9ab5b7c11352e39d79c6efdae390e8799ab88cc6",
   "clawrouter_date": "2026-09-29T14:50:59Z",
-  "catalog_version": "2026.10.20.3",
-  "base_models": 116,
-  "solana_models": 115,
+  "catalog_version": "2026.10.20.4",
+  "base_models": 117,
+  "solana_models": 116,
   "solana_chat_models": 81,
   "recommended_models": 47,
   "clawrouter_entries_excluded": [

@@ -92,6 +92,20 @@ the product adapter. `FRANKLIN_CATALOG_OFFLINE=1` supports repeatable tests.
 The package can be installed from a pinned GitHub archive without an npm
 registry release. This package contains no payment signing or settlement code.
 
+## 2026-10-20 refresh (4)
+
+Catalog `2026.10.20.4` re-imports both rails and adds `google/gemini-4-argon`,
+Google's frontier reasoning model, on Base and Solana (117 / 116 models):
+$2/$10 per million tokens, Base cached input $0.10 (a 0.05x ratio, not
+Gemini's usual 0.1x), 1M context, 65,536 max output, no long-context tier.
+Google reprices it to $4/$20 (cache $0.20) on 2026-12-01; re-import after the
+gateways move. Picker scope is deliberately catalog-only: a new
+`gemini-4-argon` shortcut resolves to it, but it is not in the default chat
+view or the Recommended group, and no existing shortcut (`gemini`, `gemini-3`)
+moved. `nvidia/llama-3.2-11b-vision` and `poolside/laguna-xs-2.1` reported
+`available: false` on Base at import time (free-tier health signal); they stay
+listed.
+
 ## 2026-10-20 refresh (3)
 
 Catalog `2026.10.20.3` re-imports both rails. Solana now lists

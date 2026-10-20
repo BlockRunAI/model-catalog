@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_version": "2026.09.29.1",
-  "catalog_version": "2026.10.20.3",
+  "catalog_version": "2026.10.20.4",
   "default_network": "solana",
   "status": "draft",
   "description": "Prototype model-specific policy for Router Core. Do not consume in production until benchmark review is complete.",
