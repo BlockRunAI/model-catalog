@@ -92,6 +92,20 @@ the product adapter. `FRANKLIN_CATALOG_OFFLINE=1` supports repeatable tests.
 The package can be installed from a pinned GitHub archive without an npm
 registry release. This package contains no payment signing or settlement code.
 
+## 2026-10-20 refresh (3)
+
+Catalog `2026.10.20.3` re-imports both rails. Solana now lists
+`deepseek/deepseek-v4.1-flash` (115 models), so the picker targets the
+canonical id: the default chat view and its Recommended group list
+`deepseek/deepseek-v4.1-flash` in place of `deepseek/deepseek-chat`, and the
+`deepseek`, `deepseek-v4.1-flash`, `deepseek-v4`, `deepseek-v4-flash`, `dsv4`,
+`deepseek-v3.2` and `deepseek-v3` shortcuts resolve to it. `deepseek-chat` keeps
+resolving to the compatibility id. Base cached input for V4.1 Flash and its
+compatibility ids drops from $0.028 to $0.006 per million tokens.
+`nvidia/muse-glimmer-30b` and `poolside/laguna-xs-2.1` reported
+`available: false` at import time (a live health signal for free upstreams);
+they stay listed.
+
 ## 2026-10-20 refresh (2)
 
 Catalog `2026.10.20.2` re-imports both rails and adds

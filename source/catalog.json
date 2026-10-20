@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "catalog_version": "2026.10.20.2",
-  "observed_at": "2026-10-20T04:45:41.000Z",
+  "catalog_version": "2026.10.20.3",
+  "observed_at": "2026-10-20T15:39:43.000Z",
   "sources": {
     "base": "https://blockrun.ai/api/v1/models?format=json",
     "solana": "https://sol.blockrun.ai/api/v1/models?format=json"
@@ -992,7 +992,7 @@
           "pricing": {
             "input": 0.14,
             "output": 0.28,
-            "cache_read": 0.028
+            "cache_read": 0.006
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1038,7 +1038,7 @@
           "pricing": {
             "input": 0.14,
             "output": 0.28,
-            "cache_read": 0.028
+            "cache_read": 0.006
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1178,16 +1178,24 @@
           "pricing": {
             "input": 0.14,
             "output": 0.28,
-            "cache_read": 0.028
+            "cache_read": 0.006
           },
           "context_window": 1048576,
           "max_output": 65536
         },
         "solana": {
-          "listed": false,
-          "categories": [],
-          "billing_mode": "unavailable",
-          "pricing": {}
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 0.14,
+            "output": 0.28
+          },
+          "context_window": 1048576,
+          "max_output": 65536
         }
       }
     },

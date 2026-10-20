@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
-  "catalog_version": "2026.10.20.2",
+  "catalog_version": "2026.10.20.3",
   "artifacts": {
     "catalog.v1.json": {
-      "sha256": "3324e84f2dde29b0252c43d6053e80075b1f475ddd8b7f0d07a4557ea505c34b",
-      "bytes": 141459
+      "sha256": "c492a21427977f348ffc324abc9b2b6252e084036d34ac6fc8ad94374afdbf25",
+      "bytes": 141636
     },
     "picker-policy.v1.json": {
-      "sha256": "53fe6501cd2150db22c766297608746f9508ce3f32d9b12c44d02558686439f1",
-      "bytes": 17711
+      "sha256": "3fbea04a939172ce9c9ff2e0e5f4c0e3607d5cd5cbe6c7b516f152cf9656cbe6",
+      "bytes": 17765
     },
     "router-policy.v1.json": {
-      "sha256": "548727cbbebfc5f7d6d1e777098ab5547df62574e4e406415995a5c5317a2e4b",
+      "sha256": "a31af2a74b4a4023b76d5481c0452c3239a2e2f608ff16b90283d0fd5e70c3c7",
       "bytes": 1447
     },
     "snapshot.v1.json": {
-      "sha256": "fac2639e182ac443bb3131e4a9354d71f7348d7b0d95ece6a88841e8686d8bbe",
-      "bytes": 172858
+      "sha256": "cb1dd1fae6159118207c38c4ee16be047c3a0d39879614a99fda0f3a96d45ea6",
+      "bytes": 173105
     }
   }
 }
