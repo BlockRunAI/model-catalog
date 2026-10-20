@@ -92,6 +92,19 @@ the product adapter. `FRANKLIN_CATALOG_OFFLINE=1` supports repeatable tests.
 The package can be installed from a pinned GitHub archive without an npm
 registry release. This package contains no payment signing or settlement code.
 
+## 2026-10-20 refresh (2)
+
+Catalog `2026.10.20.2` re-imports both rails and adds
+`deepseek/deepseek-v4.1-flash`, the canonical id for DeepSeek V4.1 Flash.
+Base lists it (116 models); Solana does not yet (114), and that is recorded
+as-is. `deepseek/deepseek-chat` and `deepseek/deepseek-reasoner` remain as
+compatibility ids for the same model, price, and routing. The Solana-scoped
+picker cannot target a model that Solana does not list. Its new
+`deepseek-v4.1-flash` shortcut, and the legacy `deepseek-v4`/`dsv4` shortcuts
+that pointed at the retired `nvidia/deepseek-v4-flash`, therefore resolve to
+`deepseek/deepseek-chat`. Retarget them to `deepseek/deepseek-v4.1-flash`
+once Solana lists it.
+
 ## 2026-10-20 refresh
 
 Catalog `2026.10.20.1` re-imports the live Base (115 models) and Solana (114)
