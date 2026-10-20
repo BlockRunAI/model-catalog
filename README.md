@@ -92,12 +92,22 @@ the product adapter. `FRANKLIN_CATALOG_OFFLINE=1` supports repeatable tests.
 The package can be installed from a pinned GitHub archive without an npm
 registry release. This package contains no payment signing or settlement code.
 
+## 2026-10-20 refresh
+
+Catalog `2026.10.20.1` re-imports the live Base (115 models) and Solana (114)
+public responses with `scripts/import-gateway.mjs`. It adds
+`openai/gpt-6.1-sol` and `mistral/mistral-large-4`, and removes
+`nvidia/gemma-4-31b` (delisted) and `openjev` (replaced by the Decisions API,
+which is served at api.blockrun.ai and is no longer in the x402 model list).
+The picker gains bare shortcuts for the two new chat models and drops the
+`gemma-4-31b` shortcut; the ClawRouter recommendation order is unchanged.
+
 ## 2026-09-29 refresh
 
 Catalog `2026.09.29.1` uses live Base/Solana public responses and ClawRouter
 commit `9ab5b7c11352e39d79c6efdae390e8799ab88cc6` for recommendation order.
 `source/provenance.json` records the counts and entries excluded from the Solana
 chat view. ClawRouter `free/*` presentation IDs are resolved to actual gateway
-IDs. Non-chat services (including `openjev`) remain in the complete catalog but
-are excluded from the chat picker. Prices and per-network categories come from
+IDs. Non-chat services remain in the complete catalog but are excluded from the
+chat picker. Prices and per-network categories come from
 the corresponding gateway, not ClawRouter's static table.

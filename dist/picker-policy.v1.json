@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": "2026.09.29.1",
-  "catalog_version": "2026.09.29.1",
+  "policy_version": "2026.10.20.1",
+  "catalog_version": "2026.10.20.1",
   "default_network": "solana",
   "compatibility_shortcuts": {
     "opus-4.6": "anthropic/claude-opus-4.6",
@@ -359,7 +359,6 @@
         "claude-sonnet-5": "anthropic/claude-sonnet-5",
         "claude-opus-4.8": "anthropic/claude-opus-4.8",
         "gpt-4o": "openai/gpt-4o",
-        "gemma-4-31b": "nvidia/gemma-4-31b",
         "grok-4.7": "xai/grok-4.7",
         "laguna-xs-2.1": "poolside/laguna-xs-2.1",
         "nemotron-3-nano-omni-30b-a3b-reasoning": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
@@ -388,7 +387,9 @@
         "claude-fable-5.1": "anthropic/claude-fable-5.1",
         "gpt-6-astra": "openai/gpt-6-astra",
         "gpt-4.1-nano": "openai/gpt-4.1-nano",
-        "gpt-5.3-codex": "openai/gpt-5.3-codex"
+        "gpt-5.3-codex": "openai/gpt-5.3-codex",
+        "gpt-6.1-sol": "openai/gpt-6.1-sol",
+        "mistral-large-4": "mistral/mistral-large-4"
       }
     }
   }
