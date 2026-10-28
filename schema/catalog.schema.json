@@ -117,6 +117,11 @@
         "description": {
           "type": "string"
         },
+        "release_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Verified model release date, YYYY-MM-DD. Omit when unknown."
+        },
         "lifecycle": {
           "enum": [
             "active",

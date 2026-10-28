@@ -13,6 +13,12 @@ export function sha256(text) {
   return createHash("sha256").update(text).digest("hex");
 }
 
+export function isReleaseDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
 export function validateAll(catalog, pickerPolicy, routerPolicy) {
   const errors = [];
   // These fields are consumed by the runtime projection without defaults.
@@ -53,6 +59,7 @@ export function validateAll(catalog, pickerPolicy, routerPolicy) {
     if (ids.has(model.id)) errors.push(`duplicate model id: ${model.id}`);
     ids.add(model.id);
     if (typeof model.name !== "string" || model.name.length === 0) errors.push(`${at}.name must be non-empty`);
+    if (model.release_date !== undefined && !isReleaseDate(model.release_date)) errors.push(`${at}.release_date must be a valid YYYY-MM-DD date`);
     if (!["active", "preview", "deprecated", "sunset"].includes(model.lifecycle)) errors.push(`${at}.lifecycle is invalid`);
     if (!Array.isArray(model.declared_capabilities)) errors.push(`${at}.declared_capabilities must be an array`);
     for (const network of ["base", "solana"]) {

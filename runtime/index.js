@@ -1,5 +1,5 @@
 import bundled from '../dist/snapshot.v1.json' with { type: 'json' };
-import { validateAll } from '../scripts/lib.mjs';
+import { isReleaseDate, validateAll } from '../scripts/lib.mjs';
 
 const gateways = {
   solana: 'https://sol.blockrun.ai/api/v1/models?format=json',
@@ -20,8 +20,39 @@ export function validateModels(rows) {
     if (row.billing_mode === 'flat' && !isNumber(row.pricing.flat)) throw new Error(`Invalid flat price: ${row.id}`);
     if (row.billing_mode === 'free' && ((row.pricing.input ?? 0) !== 0 || (row.pricing.output ?? 0) !== 0)) throw new Error(`Nonzero free price: ${row.id}`);
     for (const key of ['context_window', 'max_output']) if (row[key] !== undefined && (!Number.isInteger(row[key]) || row[key] <= 0)) throw new Error(`Invalid ${key}: ${row.id}`);
+    if (row.release_date !== undefined && !isReleaseDate(row.release_date)) throw new Error(`Invalid release_date: ${row.id}`);
   }
   return rows;
+}
+
+function modelVersion(id) {
+  const suffix = id.slice(id.indexOf('/') + 1).toLowerCase();
+  // Read the generation, never a parameter count (32b), context size or date.
+  // Older Claude and Grok IDs sometimes separate version components with '-'.
+  const match = suffix.match(/^(?:claude-(?:(?:fable|opus|sonnet|haiku)-)?|gpt-|gemini-|grok-|glm-)(\d+(?:[.-]\d{1,2})*)(?=$|[^\d.])/) ??
+    suffix.match(/^(?:o|kimi-k|minimax-m|deepseek-v|qwen|mimo-v|nemotron-|laguna-(?:xs|s)-|mistral-(?:large|small)-)(\d+(?:\.\d+)*)(?=$|[^\d.])/);
+  return match ? match[1].split(/[.-]/).map(Number) : [];
+}
+
+/**
+ * Sort one provider's models newest first without mutating the input.
+ * Complete release dates take precedence. Until the provider has complete date
+ * coverage, compare generation components numerically; same-generation models
+ * keep their input order. `created` is deliberately ignored: gateways expose a
+ * compatibility placeholder, not the model's release date.
+ */
+export function sortModelsNewestFirst(models) {
+  const dated = models.length > 0 && models.every(model => isReleaseDate(model.release_date));
+  const versions = new Map(models.map(model => [model.id, modelVersion(model.id)]));
+  return [...models].sort((a, b) => {
+    if (dated) return b.release_date.localeCompare(a.release_date);
+    const av = versions.get(a.id), bv = versions.get(b.id);
+    for (let i = 0; i < Math.max(av.length, bv.length); i++) {
+      const delta = (bv[i] ?? 0) - (av[i] ?? 0);
+      if (delta) return delta;
+    }
+    return 0;
+  });
 }
 
 function validateSnapshot(value) {
@@ -34,6 +65,7 @@ function validateSnapshot(value) {
 function snapshotModels(snapshot, network) {
   return validateModels(snapshot.catalog.models.filter(m => ['active', 'preview'].includes(m.lifecycle) && m.networks[network]?.listed).map(m => ({
     id: m.id, name: m.name, owned_by: m.provider, description: m.description,
+    ...(m.release_date !== undefined ? { release_date: m.release_date } : {}),
     ...m.networks[network],
   })));
 }
@@ -113,7 +145,12 @@ export function createCatalogClient(options = {}) {
           ]);
           if (gateway.status === 'rejected') throw gateway.reason;
           if (gateway.value.unchanged) throw new Error('Unexpected gateway 304');
-          const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false);
+          const candidateSnapshot = policy.status === 'fulfilled' ? policy.value.snapshot : snapshot;
+          const releaseDates = new Map(candidateSnapshot.catalog.models.map(m => [m.id, m.release_date]));
+          const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false).map(m => {
+            const releaseDate = m.release_date ?? releaseDates.get(m.id);
+            return releaseDate === undefined ? m : { ...m, release_date: releaseDate };
+          });
           if (!nextModels.length) throw new Error('No available models');
           // Check the complete candidate state before committing any cache fields.
           // A projection failure must not poison current() or advance the ETag.

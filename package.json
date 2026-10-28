@@ -1,6 +1,6 @@
 {
   "name": "@blockrun/model-catalog",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Versioned model metadata and picker/router policy shared by BlockRun products.",
   "type": "module",
   "files": [

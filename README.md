@@ -74,6 +74,20 @@ Refreshes use a five-minute TTL, a four-second timeout and one in-flight request
 Base and Solana have separate clients/caches. Router policy remains draft and is
 not executed by this client.
 
+Model pickers can share `sortModelsNewestFirst(providerModels)`. Pass one
+provider's models at a time; the helper returns a copy. When every model in the
+group has a verified `release_date` (`YYYY-MM-DD`), it sorts by that date,
+descending. With incomplete dates it compares numeric model generations
+(6.1 before 6, 3.10 before 3.8), preserving input order for ties and models
+with no recognized generation. This group-wide fallback keeps ordering
+consistent when dated and undated models are mixed. Neither price, tier nor
+alphabetical display names determine recency.
+
+The current gateways return the same compatibility `created` timestamp for
+every model, so it must not be used as a release date. Unknown release dates
+remain absent. Verified dates can be supplied by the gateway or the central
+catalog; central dates also enrich live rows when the gateway omits them.
+
 To update policy as well as model facts without shipping a new application,
 serve the generated `dist/snapshot.v1.json` from a trusted HTTPS endpoint and
 provide `catalogUrl`. The client validates the complete versioned snapshot,
