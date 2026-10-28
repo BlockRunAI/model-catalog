@@ -83,6 +83,10 @@ with no recognized generation. This group-wide fallback keeps ordering
 consistent when dated and undated models are mixed. Neither price, tier nor
 alphabetical display names determine recency.
 
+Browser code should import this helper from `@blockrun/model-catalog/ordering`.
+That entry point contains only the sorter and release-date validator; it does
+not load the runtime cache, bundled snapshot or Node.js validation dependencies.
+
 The current gateways return the same compatibility `created` timestamp for
 every model, so it must not be used as a release date. Unknown release dates
 remain absent. Verified dates can be supplied by the gateway or the central

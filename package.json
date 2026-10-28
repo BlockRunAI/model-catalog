@@ -20,7 +20,11 @@
       "types": "./runtime/index.d.ts",
       "default": "./runtime/index.js"
     },
-    "./snapshot": "./dist/snapshot.v1.json"
+    "./snapshot": "./dist/snapshot.v1.json",
+    "./ordering": {
+      "types": "./runtime/ordering.d.ts",
+      "default": "./runtime/ordering.js"
+    }
   },
   "scripts": {
     "validate": "node scripts/validate.mjs",
