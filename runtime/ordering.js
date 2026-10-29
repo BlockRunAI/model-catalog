@@ -4,12 +4,18 @@ export function isReleaseDate(value) {
   return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
 }
 
+// OpenAI's o-series numbers are not GPT generations: o1 shipped in the GPT-4o
+// era and o3/o4-mini alongside GPT-4.1, so rank them there instead of as "3".
+const O_SERIES_GENERATION = { 1: [4, 0], 3: [4, 1], 4: [4, 1] };
+
 function modelVersion(id) {
   const suffix = id.slice(id.indexOf('/') + 1).toLowerCase();
+  const oSeries = id.startsWith('openai/') && suffix.match(/^o(\d+)(?=$|-)/);
+  if (oSeries) return O_SERIES_GENERATION[oSeries[1]] ?? [4, 1];
   // Read the generation, never a parameter count (32b), context size or date.
   // Older Claude and Grok IDs sometimes separate version components with '-'.
   const match = suffix.match(/^(?:claude-(?:(?:fable|opus|sonnet|haiku)-)?|gpt-|gemini-|grok-|glm-)(\d+(?:[.-]\d{1,2})*)(?=$|[^\d.])/) ??
-    suffix.match(/^(?:o|kimi-k|minimax-m|deepseek-v|qwen|mimo-v|nemotron-|laguna-(?:xs|s)-|mistral-(?:large|small)-)(\d+(?:\.\d+)*)(?=$|[^\d.])/);
+    suffix.match(/^(?:kimi-k|minimax-m|deepseek-v|qwen|mimo-v|nemotron-|laguna-(?:xs|s)-|mistral-(?:large|small)-)(\d+(?:\.\d+)*)(?=$|[^\d.])/);
   return match ? match[1].split(/[.-]/).map(Number) : [];
 }
 

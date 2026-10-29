@@ -14,11 +14,18 @@ test('provider models sort by numeric generation, independent of labels, price a
     ['moonshot/kimi-k2.6', 'moonshot/kimi-k3', 'moonshot/kimi-k3.1-pro'],
     ['qwen/qwq-32b', 'qwen/qwen3.7-max', 'qwen/qwen3.8-flash'],
     ['xai/grok-3', 'xai/grok-4-1-fast-reasoning', 'xai/grok-4.7'],
+    ['openai/gpt-4o', 'openai/o3', 'openai/gpt-5', 'openai/gpt-6.1-sol'],
   ]) {
     const input = ids.map((id, i) => row(id, { name: `Label ${i}`, created: 1700000000 }));
     assert.deepEqual(sortModelsNewestFirst(input).map(m => m.id), [...ids].reverse());
     assert.deepEqual(input.map(m => m.id), ids, 'caller input is unchanged');
   }
+});
+
+test('o-series reasoning models rank with their GPT-4 era peers, not as generation 3', () => {
+  const ids = ['openai/gpt-5.4', 'openai/gpt-4.1', 'openai/o3', 'openai/o4-mini', 'openai/gpt-4o', 'openai/o1'];
+  const shuffled = [ids[5], ids[2], ids[4], ids[1], ids[3], ids[0]].map(id => row(id));
+  assert.deepEqual(sortModelsNewestFirst(shuffled).map(m => m.id), ['openai/gpt-5.4', 'openai/o3', 'openai/gpt-4.1', 'openai/o4-mini', 'openai/o1', 'openai/gpt-4o']);
 });
 
 test('complete verified release dates take precedence over model generations', () => {
