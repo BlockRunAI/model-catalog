@@ -1,3 +1,5 @@
+import { isReleaseDate } from '../runtime/ordering.js';
+
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
@@ -53,6 +55,7 @@ export function validateAll(catalog, pickerPolicy, routerPolicy) {
     if (ids.has(model.id)) errors.push(`duplicate model id: ${model.id}`);
     ids.add(model.id);
     if (typeof model.name !== "string" || model.name.length === 0) errors.push(`${at}.name must be non-empty`);
+    if (model.release_date !== undefined && !isReleaseDate(model.release_date)) errors.push(`${at}.release_date must be a valid YYYY-MM-DD date`);
     if (!["active", "preview", "deprecated", "sunset"].includes(model.lifecycle)) errors.push(`${at}.lifecycle is invalid`);
     if (!Array.isArray(model.declared_capabilities)) errors.push(`${at}.declared_capabilities must be an array`);
     for (const network of ["base", "solana"]) {

@@ -1,6 +1,6 @@
 {
   "name": "@blockrun/model-catalog",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Versioned model metadata and picker/router policy shared by BlockRun products.",
   "type": "module",
   "files": [
@@ -20,7 +20,11 @@
       "types": "./runtime/index.d.ts",
       "default": "./runtime/index.js"
     },
-    "./snapshot": "./dist/snapshot.v1.json"
+    "./snapshot": "./dist/snapshot.v1.json",
+    "./ordering": {
+      "types": "./runtime/ordering.d.ts",
+      "default": "./runtime/ordering.js"
+    }
   },
   "scripts": {
     "validate": "node scripts/validate.mjs",

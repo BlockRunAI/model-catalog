@@ -3,6 +3,8 @@ export interface Model {
   id: string; name: string; owned_by?: string; description?: string;
   categories: string[]; billing_mode: string; available?: boolean;
   pricing: Record<string, any>; context_window?: number; max_output?: number;
+  /** Actual release date (YYYY-MM-DD), never the gateway's placeholder created. */
+  release_date?: string;
 }
 export interface TokenPrice { input: number; output: number; perCall?: number }
 export interface Projection {
@@ -17,6 +19,8 @@ export interface CatalogOptions {
   timeoutMs?: number; ttlMs?: number; now?: () => number; fetch?: typeof fetch; snapshot?: any;
 }
 export function validateModels(rows: unknown): Model[];
+/** Sort one provider by release date when complete, otherwise by generation; returns a copy. */
+export function sortModelsNewestFirst<T extends {id: string; release_date?: string}>(models: readonly T[]): T[];
 export function projectCatalog(models: Model[], policy: any): Projection;
 export function createCatalogClient(options?: CatalogOptions): {
   current(): CatalogState;

@@ -1,5 +1,7 @@
 import bundled from '../dist/snapshot.v1.json' with { type: 'json' };
 import { validateAll } from '../scripts/lib.mjs';
+import { isReleaseDate } from './ordering.js';
+export { sortModelsNewestFirst } from './ordering.js';
 
 const gateways = {
   solana: 'https://sol.blockrun.ai/api/v1/models?format=json',
@@ -20,6 +22,7 @@ export function validateModels(rows) {
     if (row.billing_mode === 'flat' && !isNumber(row.pricing.flat)) throw new Error(`Invalid flat price: ${row.id}`);
     if (row.billing_mode === 'free' && ((row.pricing.input ?? 0) !== 0 || (row.pricing.output ?? 0) !== 0)) throw new Error(`Nonzero free price: ${row.id}`);
     for (const key of ['context_window', 'max_output']) if (row[key] !== undefined && (!Number.isInteger(row[key]) || row[key] <= 0)) throw new Error(`Invalid ${key}: ${row.id}`);
+    if (row.release_date !== undefined && !isReleaseDate(row.release_date)) throw new Error(`Invalid release_date: ${row.id}`);
   }
   return rows;
 }
@@ -34,6 +37,7 @@ function validateSnapshot(value) {
 function snapshotModels(snapshot, network) {
   return validateModels(snapshot.catalog.models.filter(m => ['active', 'preview'].includes(m.lifecycle) && m.networks[network]?.listed).map(m => ({
     id: m.id, name: m.name, owned_by: m.provider, description: m.description,
+    ...(m.release_date !== undefined ? { release_date: m.release_date } : {}),
     ...m.networks[network],
   })));
 }
@@ -113,7 +117,12 @@ export function createCatalogClient(options = {}) {
           ]);
           if (gateway.status === 'rejected') throw gateway.reason;
           if (gateway.value.unchanged) throw new Error('Unexpected gateway 304');
-          const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false);
+          const candidateSnapshot = policy.status === 'fulfilled' ? policy.value.snapshot : snapshot;
+          const releaseDates = new Map(candidateSnapshot.catalog.models.map(m => [m.id, m.release_date]));
+          const nextModels = validateModels(gateway.value.body?.data).filter(m => m.available !== false).map(m => {
+            const releaseDate = m.release_date ?? releaseDates.get(m.id);
+            return releaseDate === undefined ? m : { ...m, release_date: releaseDate };
+          });
           if (!nextModels.length) throw new Error('No available models');
           // Check the complete candidate state before committing any cache fields.
           // A projection failure must not poison current() or advance the ETag.

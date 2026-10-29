@@ -57,6 +57,7 @@ const models = ids.map((id) => {
     name: representative.name ?? id,
     provider: representative.owned_by ?? representative.provider ?? id.split("/", 1)[0],
     description: representative.description ?? "",
+    ...(representative.release_date !== undefined ? { release_date: representative.release_date } : {}),
     lifecycle: "active",
     declared_capabilities: [...new Set([...baseEntry.categories, ...solanaEntry.categories])].sort(),
     aliases: [],
