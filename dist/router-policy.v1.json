@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": "2026.09.29.1",
-  "catalog_version": "2026.11.12.1",
+  "policy_version": "2026.11.12.2",
+  "catalog_version": "2026.11.12.2",
   "default_network": "solana",
   "status": "draft",
   "description": "Prototype model-specific policy for Router Core. Do not consume in production until benchmark review is complete.",
@@ -15,7 +15,7 @@
     "medium": [
       "openai/gpt-5.6-luna",
       "google/gemini-3.6-flash",
-      "moonshot/kimi-k3",
+      "moonshot/kimi-k3.1-pro",
       "qwen/qwen3.8-flash"
     ],
     "complex": [
@@ -34,7 +34,7 @@
       "openai/gpt-5.6-terra",
       "anthropic/claude-sonnet-5",
       "xai/grok-4.5",
-      "moonshot/kimi-k3"
+      "moonshot/kimi-k3.1-pro"
     ]
   },
   "free_candidate_sets": {
@@ -48,7 +48,6 @@
       "nvidia/nemotron-3-ultra-550b"
     ],
     "vision": [
-      "nvidia/llama-3.2-11b-vision",
       "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"
     ]
   },
