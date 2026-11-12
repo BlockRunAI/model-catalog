@@ -1,7 +1,7 @@
 {
   "catalog": {
     "schema_version": 1,
-    "catalog_version": "2026.10.27.1",
+    "catalog_version": "2026.11.12.1",
     "observed_at": "2026-10-20T18:13:39.000Z",
     "sources": {
       "base": "https://blockrun.ai/api/v1/models?format=json",
@@ -696,7 +696,7 @@
         "id": "bytedance/seedance-1.5-pro",
         "name": "Seedance 1.5 Pro",
         "provider": "bytedance",
-        "description": "ByteDance Seedance 1.5 Pro — budget text/image-to-video at 720p with synced audio (t2v), 5s default. Does NOT support RealFace assets.",
+        "description": "ByteDance Seedance 1.5 Pro — budget text/image-to-video at 720p with synced audio, 5s default. Does NOT support RealFace assets.",
         "lifecycle": "active",
         "declared_capabilities": [
           "video"
@@ -736,7 +736,7 @@
         "id": "bytedance/seedance-2.0",
         "name": "Seedance 2.0 Pro",
         "provider": "bytedance",
-        "description": "ByteDance Seedance 2.0 Pro — premium quality text/image-to-video at 720p with synced audio (t2v), 5s default. Supports BytePlus RealFace assets — see /docs/video/real-person-ip for enrollment.",
+        "description": "ByteDance Seedance 2.0 Pro — premium quality text/image-to-video at 720p with synced audio, 5s default. Supports BytePlus RealFace assets — see /docs/video/real-person-ip for enrollment.",
         "lifecycle": "active",
         "declared_capabilities": [
           "video"
@@ -776,7 +776,7 @@
         "id": "bytedance/seedance-2.0-fast",
         "name": "Seedance 2.0 Fast",
         "provider": "bytedance",
-        "description": "ByteDance Seedance 2.0 Fast — fast video at 720p with synced audio (t2v), 5s default. ~60-80s to generate. Supports BytePlus RealFace assets — see /docs/video/real-person-ip for enrollment.",
+        "description": "ByteDance Seedance 2.0 Fast — fast video at 720p with synced audio, 5s default. ~60-80s to generate. Supports BytePlus RealFace assets — see /docs/video/real-person-ip for enrollment.",
         "lifecycle": "active",
         "declared_capabilities": [
           "video"
@@ -5702,7 +5702,7 @@
   "picker_policy": {
     "schema_version": 1,
     "policy_version": "2026.10.20.4",
-    "catalog_version": "2026.10.27.1",
+    "catalog_version": "2026.11.12.1",
     "default_network": "solana",
     "compatibility_shortcuts": {
       "opus-4.6": "anthropic/claude-opus-4.6",
@@ -6100,7 +6100,7 @@
   "router_policy": {
     "schema_version": 1,
     "policy_version": "2026.09.29.1",
-    "catalog_version": "2026.10.27.1",
+    "catalog_version": "2026.11.12.1",
     "default_network": "solana",
     "status": "draft",
     "description": "Prototype model-specific policy for Router Core. Do not consume in production until benchmark review is complete.",
