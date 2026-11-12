@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": "2026.10.20.4",
-  "catalog_version": "2026.11.12.1",
+  "policy_version": "2026.11.12.2",
+  "catalog_version": "2026.11.12.2",
   "default_network": "solana",
   "compatibility_shortcuts": {
     "opus-4.6": "anthropic/claude-opus-4.6",
@@ -70,7 +70,7 @@
         "xiaomi/mimo-v2.5-pro",
         "minimax/minimax-m3",
         "minimax/minimax-m2.7",
-        "moonshot/kimi-k3",
+        "moonshot/kimi-k3.1-pro",
         "qwen/qwen3.7-max",
         "qwen/qwen3.8-flash",
         "deepseek/deepseek-v4-flash-vision-exp",
@@ -81,7 +81,8 @@
         "cohere/north-mini-code",
         "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "nvidia/nemotron-3-ultra-550b",
-        "nvidia/llama-3.2-11b-vision"
+        "nvidia/nemotron-3-super-120b",
+        "nvidia/nemotron-3.5-bolt"
       ],
       "groups": [
         {
@@ -123,7 +124,7 @@
             "xiaomi/mimo-v2.5-pro",
             "minimax/minimax-m3",
             "minimax/minimax-m2.7",
-            "moonshot/kimi-k3",
+            "moonshot/kimi-k3.1-pro",
             "qwen/qwen3.7-max",
             "qwen/qwen3.8-flash",
             "deepseek/deepseek-v4-flash-vision-exp",
@@ -140,7 +141,8 @@
             "cohere/north-mini-code",
             "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
             "nvidia/nemotron-3-ultra-550b",
-            "nvidia/llama-3.2-11b-vision"
+            "nvidia/nemotron-3-super-120b",
+            "nvidia/nemotron-3.5-bolt"
           ]
         }
       ],
@@ -196,7 +198,7 @@
         "glm-5": "zai/glm-5",
         "glm-turbo": "zai/glm-5-turbo",
         "glm5": "zai/glm-5.1",
-        "kimi": "moonshot/kimi-k3",
+        "kimi": "moonshot/kimi-k3.1-pro",
         "br-sonnet": "anthropic/claude-sonnet-4.6",
         "sonnet-4": "anthropic/claude-sonnet-4.6",
         "sonnet-4-6": "anthropic/claude-sonnet-4.6",
@@ -250,7 +252,7 @@
         "openai-codex/gpt-5.4-mini": "openai/gpt-5.4-mini",
         "gpt-5.4-mini": "openai/gpt-5.4-mini",
         "deepseek-chat": "deepseek/deepseek-chat",
-        "kimi-k3": "moonshot/kimi-k3",
+        "kimi-k3": "moonshot/kimi-k3.1-pro",
         "qwen3.7-max": "qwen/qwen3.7-max",
         "qwen3.8-flash": "qwen/qwen3.8-flash",
         "qwen3-8-flash": "qwen/qwen3.8-flash",
@@ -298,7 +300,7 @@
         "free/devstral-2-123b": "nvidia/nemotron-3.5-lightning",
         "mistral-free": "nvidia/nemotron-3.5-lightning",
         "glm-free": "nvidia/nemotron-3.5-lightning",
-        "llama-free": "nvidia/llama-3.2-11b-vision",
+        "llama-free": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "qwen-coder-free": "nvidia/nemotron-3.5-lightning",
         "qwen-thinking": "nvidia/nemotron-3.5-lightning",
         "coder-free": "cohere/north-mini-code",
@@ -318,7 +320,7 @@
         "nvidia/nemotron-3.5-lightning": "nvidia/nemotron-3.5-lightning",
         "nvidia/nemotron-3-nano-30b": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "nvidia/nemotron-3-ultra-550b": "nvidia/nemotron-3-ultra-550b",
-        "nvidia/llama-3.2-11b-vision": "nvidia/llama-3.2-11b-vision",
+        "nvidia/llama-3.2-11b-vision": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "cohere/north-mini-code": "cohere/north-mini-code",
         "poolside/laguna-xs-2.1": "poolside/laguna-xs-2.1",
         "lightning": "nvidia/nemotron-3.5-lightning",
@@ -328,8 +330,8 @@
         "nemotron-nano-30b": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "ultra-550b": "nvidia/nemotron-3-ultra-550b",
         "nemotron-ultra-550b": "nvidia/nemotron-3-ultra-550b",
-        "llama-vision": "nvidia/llama-3.2-11b-vision",
-        "llama-3.2-vision": "nvidia/llama-3.2-11b-vision",
+        "llama-vision": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+        "llama-3.2-vision": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "north-mini": "cohere/north-mini-code",
         "north-mini-code": "cohere/north-mini-code",
         "laguna": "poolside/laguna-xs-2.1",
@@ -349,7 +351,7 @@
         "qwen": "qwen/qwen3.8-max",
         "free-code": "cohere/north-mini-code",
         "free-fast": "nvidia/nemotron-3.5-lightning",
-        "free-vision": "nvidia/llama-3.2-11b-vision",
+        "free-vision": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "claude-sonnet-4.5": "anthropic/claude-sonnet-4.5",
         "gpt-5-mini": "openai/gpt-5-mini",
         "gemini-2.5-pro": "google/gemini-2.5-pro",
@@ -374,7 +376,7 @@
         "gpt-6-luna": "openai/gpt-6-luna",
         "grok-4.6": "xai/grok-4.6",
         "claude-sonnet-4.6": "anthropic/claude-sonnet-4.6",
-        "llama-3.2-11b-vision": "nvidia/llama-3.2-11b-vision",
+        "llama-3.2-11b-vision": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
         "hy4-preview": "tencent/hy4-preview",
         "gpt-4o-mini": "openai/gpt-4o-mini",
         "claude-opus-4.7": "anthropic/claude-opus-4.7",
@@ -387,11 +389,18 @@
         "gemini-3-flash-preview": "google/gemini-3-flash-preview",
         "claude-fable-5.1": "anthropic/claude-fable-5.1",
         "gpt-6-astra": "openai/gpt-6-astra",
-        "gpt-4.1-nano": "openai/gpt-4.1-nano",
+        "gpt-4.1-nano": "openai/gpt-5.4-nano",
         "gpt-5.3-codex": "openai/gpt-5.3-codex",
         "gpt-6.1-sol": "openai/gpt-6.1-sol",
         "mistral-large-4": "mistral/mistral-large-4",
-        "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash"
+        "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash",
+        "gemini-4-carbon": "google/gemini-4-carbon",
+        "kimi-k3.1-pro": "moonshot/kimi-k3.1-pro",
+        "kimi-k3.1": "moonshot/kimi-k3.1-pro",
+        "nemotron-3.5-bolt": "nvidia/nemotron-3.5-bolt",
+        "nemotron-bolt": "nvidia/nemotron-3.5-bolt",
+        "nemotron-3-super": "nvidia/nemotron-3-super-120b",
+        "minimax-m3.1-flash": "nvidia/minimax-m3.1-flash"
       }
     }
   }

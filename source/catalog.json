@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "catalog_version": "2026.11.12.1",
-  "observed_at": "2026-10-20T18:13:39.000Z",
+  "catalog_version": "2026.11.12.2",
+  "observed_at": "2026-11-12T20:53:46.000Z",
   "sources": {
     "base": "https://blockrun.ai/api/v1/models?format=json",
     "solana": "https://sol.blockrun.ai/api/v1/models?format=json"
@@ -11,7 +11,7 @@
       "id": "anthropic/claude-fable-5",
       "name": "Claude Fable 5",
       "provider": "anthropic",
-      "description": "Anthropic's most capable model — Mythos-class tier above Opus, for the most demanding reasoning and long-horizon agentic work. 1M context, 128K output, always-on thinking",
+      "description": "Mythos-class tier above Opus, for the most demanding reasoning and long-horizon agentic work. 1M context, 128K output, always-on thinking",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -110,6 +110,47 @@
       }
     },
     {
+      "id": "anthropic/claude-fable-5.2",
+      "name": "Claude Fable 5.2",
+      "provider": "anthropic",
+      "description": "Anthropic's most capable model — successor to Fable 5.1 at a lower price, for the most demanding reasoning and long-horizon agentic work. 1M context, 128K output, always-on thinking. Anthropic retains requests to this model for 30 days.",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 8,
+            "output": 40,
+            "cache_read": 0.2,
+            "cache_write": 10
+          },
+          "context_window": 1000000,
+          "max_output": 128000
+        },
+        "solana": {
+          "listed": false,
+          "categories": [],
+          "billing_mode": "unavailable",
+          "pricing": {}
+        }
+      }
+    },
+    {
       "id": "anthropic/claude-haiku-4.5",
       "name": "Claude Haiku 4.5",
       "provider": "anthropic",
@@ -161,7 +202,7 @@
       "id": "anthropic/claude-opus-4.5",
       "name": "Claude Opus 4.5",
       "provider": "anthropic",
-      "description": "Latest Anthropic flagship with enhanced reasoning and creativity",
+      "description": "Claude Opus 4.5 — enhanced reasoning and creativity",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -314,7 +355,7 @@
       "id": "anthropic/claude-opus-5",
       "name": "Claude Opus 5",
       "provider": "anthropic",
-      "description": "Newest Opus — step-change over Opus 4.8 for deep reasoning and agentic coding at the same price. 1M context, 128k output, adaptive thinking",
+      "description": "Opus 5 — step-change over Opus 4.8 for deep reasoning and agentic coding at the same price. 1M context, 128k output, adaptive thinking",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -467,7 +508,7 @@
       "id": "anthropic/claude-sonnet-4.6",
       "name": "Claude Sonnet 4.6",
       "provider": "anthropic",
-      "description": "Best balance of intelligence, speed, and cost",
+      "description": "Sonnet 4.6 — a balance of intelligence, speed, and cost",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -518,7 +559,7 @@
       "id": "anthropic/claude-sonnet-5",
       "name": "Claude Sonnet 5",
       "provider": "anthropic",
-      "description": "Newest Sonnet — near-Opus coding/agentic quality at Sonnet cost. 1M context, 128k output, adaptive thinking, vision",
+      "description": "Sonnet 5 — near-Opus coding/agentic quality at Sonnet cost. 1M context, 128k output, adaptive thinking, vision",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -621,7 +662,7 @@
       "name": "Sora 2",
       "provider": "azure",
       "description": "OpenAI Sora 2 via Azure AI Foundry — text-to-video AND image-to-video at 720p with synchronized audio. 4s default; 4, 8, or 12s. Portrait or landscape. Image-to-video takes a non-human reference image (human faces are rejected upstream — use Seedance + RealFace for real people). $0.10/sec.",
-      "lifecycle": "active",
+      "lifecycle": "deprecated",
       "declared_capabilities": [
         "video"
       ],
@@ -629,7 +670,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "video"
           ],
@@ -685,7 +726,7 @@
           ],
           "billing_mode": "per_character",
           "pricing": {
-            "per_1k_chars": 0.3,
+            "per_1k_chars": 0.315,
             "max_input_chars": 3000
           }
         }
@@ -724,7 +765,8 @@
           ],
           "billing_mode": "per_second",
           "pricing": {
-            "per_second": 0.07,
+            "per_second": 0.070783146,
+            "per_call_surcharge": 0,
             "default_duration_seconds": 5,
             "max_duration_seconds": 12
           }
@@ -764,7 +806,8 @@
           ],
           "billing_mode": "per_second",
           "pricing": {
-            "per_second": 0.227,
+            "per_second": 0.22709592675,
+            "per_call_surcharge": 0,
             "default_duration_seconds": 5,
             "max_duration_seconds": 15
           }
@@ -804,7 +847,8 @@
           ],
           "billing_mode": "per_second",
           "pricing": {
-            "per_second": 0.165,
+            "per_second": 0.165160674,
+            "per_call_surcharge": 0,
             "default_duration_seconds": 5,
             "max_duration_seconds": 15
           }
@@ -844,7 +888,8 @@
           ],
           "billing_mode": "per_second",
           "pricing": {
-            "per_second": 0.0797,
+            "per_second": 0.07971075,
+            "per_call_surcharge": 0,
             "default_duration_seconds": 5,
             "max_duration_seconds": 15
           }
@@ -855,7 +900,7 @@
       "id": "bytedance/seedance-2.5",
       "name": "Seedance 2.5",
       "provider": "bytedance",
-      "description": "ByteDance Seedance 2.5 — Long-form video up to 30s at 720p, with first/last-frame control and up to 30 reference images. For 1080p or 4K use Seedance 2.0 Pro.",
+      "description": "ByteDance Seedance 2.5 — Long-form video up to 30s at 720p, with first/last-frame control, up to 30 reference images, and reference video/audio clips up to 30s each (billed per reference second). For 1080p or 4K use Seedance 2.0 Pro.",
       "lifecycle": "active",
       "declared_capabilities": [
         "video"
@@ -884,7 +929,8 @@
           ],
           "billing_mode": "per_second",
           "pricing": {
-            "per_second": 0.315,
+            "per_second": 0.31557485925,
+            "per_call_surcharge": 0,
             "default_duration_seconds": 5,
             "max_duration_seconds": 30
           }
@@ -921,7 +967,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.045
+            "per_image": 0.04725
           }
         }
       }
@@ -977,7 +1023,8 @@
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
-        "coding"
+        "coding",
+        "vision"
       ],
       "aliases": [],
       "redirects": [],
@@ -986,7 +1033,8 @@
           "listed": true,
           "categories": [
             "chat",
-            "coding"
+            "coding",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
@@ -1001,12 +1049,17 @@
           "listed": true,
           "categories": [
             "chat",
-            "coding"
+            "coding",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
             "input": 0.14,
-            "output": 0.28
+            "output": 0.28,
+            "cache_read": 0.006,
+            "cache_read_schemes": [
+              "batch-settlement"
+            ]
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1022,7 +1075,8 @@
       "declared_capabilities": [
         "chat",
         "coding",
-        "reasoning"
+        "reasoning",
+        "vision"
       ],
       "aliases": [],
       "redirects": [],
@@ -1032,7 +1086,8 @@
           "categories": [
             "chat",
             "coding",
-            "reasoning"
+            "reasoning",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
@@ -1047,12 +1102,17 @@
           "listed": true,
           "categories": [
             "coding",
-            "reasoning"
+            "reasoning",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
             "input": 0.14,
-            "output": 0.28
+            "output": 0.28,
+            "cache_read": 0.006,
+            "cache_read_schemes": [
+              "batch-settlement"
+            ]
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1099,7 +1159,11 @@
           "billing_mode": "paid",
           "pricing": {
             "input": 0.3,
-            "output": 1.2
+            "output": 1.2,
+            "cache_read": 0.006,
+            "cache_read_schemes": [
+              "batch-settlement"
+            ]
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1146,7 +1210,11 @@
           "billing_mode": "paid",
           "pricing": {
             "input": 1.32,
-            "output": 3.96
+            "output": 3.96,
+            "cache_read": 0.044,
+            "cache_read_schemes": [
+              "batch-settlement"
+            ]
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1162,7 +1230,8 @@
       "declared_capabilities": [
         "chat",
         "coding",
-        "reasoning"
+        "reasoning",
+        "vision"
       ],
       "aliases": [],
       "redirects": [],
@@ -1172,7 +1241,8 @@
           "categories": [
             "chat",
             "coding",
-            "reasoning"
+            "reasoning",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
@@ -1187,12 +1257,17 @@
           "listed": true,
           "categories": [
             "chat",
-            "coding"
+            "coding",
+            "vision"
           ],
           "billing_mode": "paid",
           "pricing": {
             "input": 0.14,
-            "output": 0.28
+            "output": 0.28,
+            "cache_read": 0.006,
+            "cache_read_schemes": [
+              "batch-settlement"
+            ]
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -1233,7 +1308,7 @@
           ],
           "billing_mode": "per_character",
           "pricing": {
-            "per_1k_chars": 0.05,
+            "per_1k_chars": 0.0525,
             "max_input_chars": 40000
           }
         }
@@ -1273,7 +1348,7 @@
           ],
           "billing_mode": "per_character",
           "pricing": {
-            "per_1k_chars": 0.1,
+            "per_1k_chars": 0.105,
             "max_input_chars": 10000
           }
         }
@@ -1310,7 +1385,7 @@
           ],
           "billing_mode": "per_generation",
           "pricing": {
-            "per_generation": 0.05,
+            "per_generation": 0.0525,
             "max_duration_seconds": 22
           }
         }
@@ -1350,7 +1425,7 @@
           ],
           "billing_mode": "per_character",
           "pricing": {
-            "per_1k_chars": 0.05,
+            "per_1k_chars": 0.0525,
             "max_input_chars": 40000
           }
         }
@@ -1390,7 +1465,7 @@
           ],
           "billing_mode": "per_character",
           "pricing": {
-            "per_1k_chars": 0.1,
+            "per_1k_chars": 0.105,
             "max_input_chars": 5000
           }
         }
@@ -1490,7 +1565,7 @@
       "id": "google/gemini-2.5-pro",
       "name": "Gemini 2.5 Pro",
       "provider": "google",
-      "description": "State-of-the-art for reasoning, coding, and mathematics",
+      "description": "Gemini 2.5 Pro — strong reasoning, coding, and mathematics",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1650,7 +1725,7 @@
       "id": "google/gemini-3.1-pro",
       "name": "Gemini 3.1 Pro",
       "provider": "google",
-      "description": "Latest Gemini with improved thinking, token efficiency, and agentic capabilities. Optimized for software engineering (requires new SDK)",
+      "description": "Gemini 3.1 Pro with improved thinking, token efficiency, and agentic capabilities. Optimized for software engineering (requires new SDK)",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1717,7 +1792,7 @@
       "id": "google/gemini-3.5-flash",
       "name": "Gemini 3.5 Flash",
       "provider": "google",
-      "description": "Latest-generation Flash with built-in thinking mode — frontier-class quality at Flash speed",
+      "description": "Gemini 3.5 Flash with built-in thinking mode — frontier-class quality at Flash speed",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1811,7 +1886,7 @@
       "id": "google/gemini-3.6-flash",
       "name": "Gemini 3.6 Flash",
       "provider": "google",
-      "description": "Newest-generation Flash with built-in thinking mode — frontier-class quality at Flash speed",
+      "description": "Gemini 3.6 Flash with built-in thinking mode — frontier-class quality at Flash speed",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1911,7 +1986,57 @@
       "id": "google/gemini-4-argon",
       "name": "Gemini 4 Argon",
       "provider": "google",
-      "description": "Google's frontier reasoning model, built for long multi-step agent work, complex software engineering and deep math and science problems",
+      "description": "Google's efficient Gemini 4 model: Gemini 4 intelligence with faster responses and fewer tokens per turn than Carbon",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 2,
+            "output": 10,
+            "cache_read": 0.1
+          },
+          "context_window": 1048576,
+          "max_output": 65536
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 2,
+            "output": 10
+          },
+          "context_window": 1048576,
+          "max_output": 65536
+        }
+      }
+    },
+    {
+      "id": "google/gemini-4-carbon",
+      "name": "Gemini 4 Carbon",
+      "provider": "google",
+      "description": "Google's most capable reasoning model, built for complex software engineering, deep math and science, and long autonomous agent work",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -1987,7 +2112,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.05
+            "per_image": 0.0525
           }
         }
       }
@@ -2022,7 +2147,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.09
+            "per_image": 0.0945
           }
         }
       }
@@ -2057,8 +2182,86 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.1
+            "per_image": 0.105
           }
+        }
+      }
+    },
+    {
+      "id": "meta/muse-spark-1.3",
+      "name": "Muse Spark 1.3",
+      "provider": "meta",
+      "description": "Meta's Muse Spark 1.3, Meta's current general model. 1M context, image + text input, tool calling, always reasons (reasoning_effort minimal to max).",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": false,
+          "categories": [],
+          "billing_mode": "unavailable",
+          "pricing": {}
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 1.25,
+            "output": 4.25
+          },
+          "context_window": 1048576,
+          "max_output": 131072
+        }
+      }
+    },
+    {
+      "id": "meta/muse-wonder-1.0",
+      "name": "Muse Wonder 1.0",
+      "provider": "meta",
+      "description": "Meta's Muse Wonder 1.0 (preview), Meta's frontier model for agents and coding. 1M context, image + text input, tool calling, always reasons (reasoning_effort minimal to max).",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": false,
+          "categories": [],
+          "billing_mode": "unavailable",
+          "pricing": {}
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 4,
+            "output": 20
+          },
+          "context_window": 1048576,
+          "max_output": 131072
         }
       }
     },
@@ -2066,7 +2269,7 @@
       "id": "minimax/minimax-m2.7",
       "name": "MiniMax M2.7",
       "provider": "minimax",
-      "description": "MiniMax's flagship reasoning model with recursive self-improvement. Great value for complex tasks (~60 tps)",
+      "description": "MiniMax's M2.7 reasoning model with recursive self-improvement. Great value for complex tasks (~60 tps)",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -2173,7 +2376,7 @@
           ],
           "billing_mode": "per_track",
           "pricing": {
-            "per_track": 0.1575,
+            "per_track": 0.199,
             "transaction_fee": 0.001
           }
         },
@@ -2184,7 +2387,7 @@
           ],
           "billing_mode": "per_track",
           "pricing": {
-            "per_track": 0.15
+            "per_track": 0.2
           }
         }
       }
@@ -2214,8 +2417,8 @@
           ],
           "billing_mode": "paid",
           "pricing": {
-            "input": 0.68,
-            "output": 2.09
+            "input": 1.36,
+            "output": 4.18
           },
           "context_window": 524288,
           "max_output": 262144
@@ -2230,8 +2433,8 @@
           ],
           "billing_mode": "paid",
           "pricing": {
-            "input": 0.68,
-            "output": 2.09
+            "input": 1.36,
+            "output": 4.18
           },
           "context_window": 524288,
           "max_output": 262144
@@ -2243,6 +2446,56 @@
       "name": "Kimi K3",
       "provider": "moonshot",
       "description": "Moonshot's flagship — a 2.8-trillion-parameter open MoE with 1M context, image + text input, returning reasoning_content. Live-verified 2026-07-17 (chat, tools, vision).",
+      "lifecycle": "deprecated",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": false,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 3,
+            "output": 15,
+            "cache_read": 0.3
+          },
+          "context_window": 1048576,
+          "max_output": 65536
+        },
+        "solana": {
+          "listed": false,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 3,
+            "output": 15
+          },
+          "context_window": 1048576,
+          "max_output": 65536
+        }
+      }
+    },
+    {
+      "id": "moonshot/kimi-k3.1-pro",
+      "name": "Kimi K3.1 Pro",
+      "provider": "moonshot",
+      "description": "Moonshot's flagship — post-trained successor to Kimi K3 for long-horizon coding and agents. 1M context, image + text input, returns reasoning_content.",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -2263,9 +2516,9 @@
           ],
           "billing_mode": "paid",
           "pricing": {
-            "input": 3,
-            "output": 15,
-            "cache_read": 0.3
+            "input": 2,
+            "output": 10,
+            "cache_read": 0.2
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -2280,8 +2533,8 @@
           ],
           "billing_mode": "paid",
           "pricing": {
-            "input": 3,
-            "output": 15
+            "input": 2,
+            "output": 10
           },
           "context_window": 1048576,
           "max_output": 65536
@@ -2293,7 +2546,7 @@
       "name": "Llama 3.2 11B Vision (Free)",
       "provider": "nvidia",
       "description": "Meta's Llama 3.2 11B Vision hosted free by NVIDIA. Accepts images; 128K context.",
-      "lifecycle": "active",
+      "lifecycle": "deprecated",
       "declared_capabilities": [
         "chat",
         "vision"
@@ -2302,7 +2555,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "chat",
             "vision"
@@ -2316,7 +2569,7 @@
           "max_output": 16384
         },
         "solana": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "chat",
             "vision"
@@ -2327,6 +2580,52 @@
             "output": 0
           },
           "context_window": 128000,
+          "max_output": 16384
+        }
+      }
+    },
+    {
+      "id": "nvidia/minimax-m3.1-flash",
+      "name": "MiniMax M3.1 Flash (Free)",
+      "provider": "nvidia",
+      "description": "MiniMax's M3.1 Flash hosted free by NVIDIA. Reasons before it answers, calls tools, and takes a 1M context, usually in a few seconds.",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": false,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 1048576,
+          "max_output": 16384
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 1048576,
           "max_output": 16384
         }
       }
@@ -2346,7 +2645,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "chat",
             "coding",
@@ -2381,7 +2680,7 @@
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
       "name": "Nemotron 3 Nano Omni (Free)",
       "provider": "nvidia",
-      "description": "NVIDIA's multimodal reasoning Nemotron Nano Omni, free. 31B / 3.2B active MoE. Accepts text, images, video, audio. ChartQA 90.3, DocVQA 95.6, MMMU 70.8 — the only vision-capable free model in our catalog",
+      "description": "NVIDIA's multimodal reasoning Nemotron Nano Omni, free. 31B / 3.2B active MoE. Accepts text, images, video, audio. ChartQA 90.3, DocVQA 95.6, MMMU 70.8 — the only free model in our catalog that takes video and audio as well as images",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -2424,6 +2723,55 @@
       }
     },
     {
+      "id": "nvidia/nemotron-3-super-120b",
+      "name": "Nemotron 3.5 Super 120B (Free)",
+      "provider": "nvidia",
+      "description": "NVIDIA Nemotron 3.5 Super VL: MoE model (12B active params) with thinking mode. Reads images, fast and capable reasoning",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 131072,
+          "max_output": 16384
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning",
+            "vision"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 131072,
+          "max_output": 16384
+        }
+      }
+    },
+    {
       "id": "nvidia/nemotron-3-ultra-550b",
       "name": "Nemotron 3 Ultra 550B (Free)",
       "provider": "nvidia",
@@ -2437,7 +2785,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": false,
+          "listed": true,
           "categories": [
             "chat",
             "reasoning"
@@ -2467,6 +2815,52 @@
       }
     },
     {
+      "id": "nvidia/nemotron-3.5-bolt",
+      "name": "Nemotron 3.5 Bolt (Free)",
+      "provider": "nvidia",
+      "description": "NVIDIA's small, fast Nemotron 3.5 hosted free by NVIDIA. Answers in about a second, reads images and calls tools; no thinking pass. 131K context",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "vision"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "vision"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 131072,
+          "max_output": 16384
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "vision"
+          ],
+          "billing_mode": "free",
+          "pricing": {
+            "input": 0,
+            "output": 0
+          },
+          "context_window": 131072,
+          "max_output": 16384
+        }
+      }
+    },
+    {
       "id": "nvidia/nemotron-3.5-lightning",
       "name": "Nemotron 3.5 Lightning (Free)",
       "provider": "nvidia",
@@ -2480,7 +2874,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": false,
+          "listed": true,
           "categories": [
             "chat",
             "reasoning"
@@ -2651,7 +3045,7 @@
       "name": "GPT-4.1 Nano",
       "provider": "openai",
       "description": "Ultra-fast and cost-effective GPT-4.1",
-      "lifecycle": "active",
+      "lifecycle": "deprecated",
       "declared_capabilities": [
         "chat",
         "vision"
@@ -2660,7 +3054,7 @@
       "redirects": [],
       "networks": {
         "base": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "chat"
           ],
@@ -2674,7 +3068,7 @@
           "max_output": 32768
         },
         "solana": {
-          "listed": true,
+          "listed": false,
           "categories": [
             "chat",
             "vision"
@@ -3026,7 +3420,7 @@
       "id": "openai/gpt-5.4",
       "name": "GPT-5.4",
       "provider": "openai",
-      "description": "Most capable and efficient frontier model with 1M context, native computer use, and thinking mode",
+      "description": "GPT-5.4 frontier model with 1M context, native computer use, and thinking mode",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -3511,7 +3905,7 @@
       "id": "openai/gpt-5.6-sol",
       "name": "GPT-5.6 Sol",
       "provider": "openai",
-      "description": "OpenAI flagship tier — deepest reasoning for complex coding, agentic workflows, and long-horizon problems. 1M context",
+      "description": "Top GPT-5.6 tier — deepest reasoning for complex coding, agentic workflows, and long-horizon problems. 1M context",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -3922,6 +4316,52 @@
       }
     },
     {
+      "id": "openai/gpt-6-luna-decisions",
+      "name": "GPT-6 Luna Decisions",
+      "provider": "openai",
+      "description": "Typed judgments over text or images: predicate (yes/no with a probability), choice (one of your values, with per-value probabilities) or score (an ordered rubric). OpenAI Decisions-compatible — POST /v1/decisions, not /v1/chat/completions. Billed on input tokens only, plus the transaction fee per call; with an API key from https://user.blockrun.ai, https://api.blockrun.ai/v1/decisions bills them from credit.",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "judgment"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": true,
+          "categories": [
+            "judgment"
+          ],
+          "billing_mode": "per_token",
+          "pricing": {
+            "input": 0.1,
+            "output": 0,
+            "transaction_fee": 0.001,
+            "long_context": {
+              "threshold": 272000,
+              "input": 0.2
+            }
+          }
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "judgment"
+          ],
+          "billing_mode": "per_token",
+          "pricing": {
+            "input": 0.1,
+            "output": 0,
+            "long_context_threshold": 272000,
+            "long_context_input": 0.2,
+            "per_call_fee_exact": 0.001,
+            "per_call_fee_batch": 0,
+            "service_fee": 0
+          }
+        }
+      }
+    },
+    {
       "id": "openai/gpt-6-sol",
       "name": "GPT-6 Sol",
       "provider": "openai",
@@ -4089,7 +4529,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.02
+            "per_image": 0.021
           }
         }
       }
@@ -4124,7 +4564,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.06
+            "per_image": 0.063
           }
         }
       }
@@ -4159,7 +4599,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.28
+            "per_image": 0.294
           }
         }
       }
@@ -4194,7 +4634,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.28
+            "per_image": 0.294
           }
         }
       }
@@ -4249,7 +4689,7 @@
       "id": "openai/o3",
       "name": "o3",
       "provider": "openai",
-      "description": "Latest reasoning model with improved performance",
+      "description": "o-series reasoning model with improved performance",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -4341,7 +4781,7 @@
       "id": "openai/o4-mini",
       "name": "o4-mini",
       "provider": "openai",
-      "description": "Latest generation efficient reasoning model",
+      "description": "Efficient o4-generation reasoning model",
       "lifecycle": "active",
       "declared_capabilities": [
         "coding",
@@ -4531,7 +4971,7 @@
       "id": "qwen/qwen3.7-max",
       "name": "Qwen3.7 Max",
       "provider": "qwen",
-      "description": "Alibaba's Qwen flagship — the Max tier. 1M context, strong reasoning, coding, and agentic tool use. Live-verified 2026-07-20.",
+      "description": "Alibaba's Qwen3.7 Max tier. 1M context, strong reasoning, coding, and agentic tool use. Live-verified 2026-07-20.",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -4723,6 +5163,43 @@
       }
     },
     {
+      "id": "reflection/beam-1.0-501b-a23b",
+      "name": "Beam 1.0",
+      "provider": "reflection",
+      "description": "Reflection's Beam 1.0 — open-weight 501B MoE (23B active) reasoning model for coding and long-horizon agents. 1M context, tool calling, reasoning_effort low-max.",
+      "lifecycle": "active",
+      "declared_capabilities": [
+        "chat",
+        "coding",
+        "reasoning"
+      ],
+      "aliases": [],
+      "redirects": [],
+      "networks": {
+        "base": {
+          "listed": false,
+          "categories": [],
+          "billing_mode": "unavailable",
+          "pricing": {}
+        },
+        "solana": {
+          "listed": true,
+          "categories": [
+            "chat",
+            "coding",
+            "reasoning"
+          ],
+          "billing_mode": "paid",
+          "pricing": {
+            "input": 0.25,
+            "output": 1
+          },
+          "context_window": 1048576,
+          "max_output": 131072
+        }
+      }
+    },
+    {
       "id": "tencent/hy4-preview",
       "name": "Tencent Hy4 Preview",
       "provider": "tencent",
@@ -4839,7 +5316,7 @@
       "id": "xai/grok-4.5",
       "name": "Grok 4.5",
       "provider": "xai",
-      "description": "xAI's flagship Grok 4.5 — their most intelligent and fastest model. 500K context, vision-capable, chain-of-thought reasoning. Supports Live Search (+$0.30 per call)",
+      "description": "xAI's Grok 4.5 — 500K context, vision-capable, chain-of-thought reasoning. Supports Live Search (+$0.30 per call)",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -4909,7 +5386,7 @@
       "id": "xai/grok-4.6",
       "name": "Grok 4.6",
       "provider": "xai",
-      "description": "xAI's flagship Grok 4.6 — 500K context, chain-of-thought reasoning with selectable effort. Supports Live Search (+$0.30 per call)",
+      "description": "xAI's Grok 4.6 — 500K context, chain-of-thought reasoning with selectable effort. Supports Live Search (+$0.30 per call)",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
@@ -5136,7 +5613,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.02
+            "per_image": 0.021
           }
         }
       }
@@ -5145,7 +5622,7 @@
       "id": "xai/grok-imagine-image-2.0",
       "name": "Grok Imagine 2.0",
       "provider": "xai",
-      "description": "xAI's Grok Imagine 2.0 image generation. Sits between Grok Imagine and the Pro quality tier on price.",
+      "description": "xAI's Grok Imagine 2.0 image generation at low quality. Sits between Grok Imagine and Grok Imagine Pro on price.",
       "lifecycle": "active",
       "declared_capabilities": [
         "image"
@@ -5171,7 +5648,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.04
+            "per_image": 0.042
           }
         }
       }
@@ -5180,7 +5657,7 @@
       "id": "xai/grok-imagine-image-pro",
       "name": "Grok Imagine Pro",
       "provider": "xai",
-      "description": "xAI's premium Grok Imagine image generation (quality tier). Higher quality, 30 RPM.",
+      "description": "xAI's Grok Imagine 2.0 image generation at medium quality: finer detail than Grok Imagine 2.0. 30 RPM.",
       "lifecycle": "active",
       "declared_capabilities": [
         "image"
@@ -5195,7 +5672,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.0525,
+            "per_image": 0.063,
             "transaction_fee": 0.001
           }
         },
@@ -5206,7 +5683,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.05
+            "per_image": 0.063
           }
         }
       }
@@ -5215,7 +5692,7 @@
       "id": "xai/grok-imagine-video",
       "name": "Grok Imagine Video",
       "provider": "xai",
-      "description": "xAI's Grok Imagine video generation. Text or image to video, configurable 1–15s clips. $0.05/sec at 480p (default), $0.07/sec at 720p — official per-second rates, plus a flat $0.001 per generation.",
+      "description": "xAI's Grok Imagine video generation. Text or image to video, configurable 1–15s clips. $0.05/sec at 480p (default), $0.07/sec at 720p — official per-second rates, plus $0.002 per input image and a flat $0.001 per generation.",
       "lifecycle": "active",
       "declared_capabilities": [
         "video"
@@ -5232,6 +5709,7 @@
           "pricing": {
             "per_second": 0.05,
             "per_call_surcharge": 0.001,
+            "per_input_image": 0.002,
             "transaction_fee": 0.001,
             "default_duration_seconds": 8,
             "max_duration_seconds": 15
@@ -5245,6 +5723,8 @@
           "billing_mode": "per_second",
           "pricing": {
             "per_second": 0.05,
+            "per_call_surcharge": 0.001,
+            "per_input_image": 0.002,
             "default_duration_seconds": 8,
             "max_duration_seconds": 15
           }
@@ -5255,7 +5735,7 @@
       "id": "xai/grok-imagine-video-1.5",
       "name": "Grok Imagine Video 1.5",
       "provider": "xai",
-      "description": "xAI's flagship Grok Imagine Video 1.5 — text or image to video with native synced audio, 1–15s clips. $0.08/sec at 480p (default), $0.14/sec at 720p, $0.25/sec at 1080p — official per-second rates, plus a flat $0.001 per generation.",
+      "description": "xAI's flagship Grok Imagine Video 1.5 — text or image to video with native synced audio, 1–15s clips. $0.08/sec at 480p (default), $0.14/sec at 720p, $0.25/sec at 1080p — official per-second rates, plus $0.01 per input image and a flat $0.001 per generation. First-and-last-frame at 480p and 720p.",
       "lifecycle": "active",
       "declared_capabilities": [
         "video"
@@ -5272,6 +5752,7 @@
           "pricing": {
             "per_second": 0.08,
             "per_call_surcharge": 0.001,
+            "per_input_image": 0.01,
             "transaction_fee": 0.001,
             "default_duration_seconds": 8,
             "max_duration_seconds": 15
@@ -5285,6 +5766,8 @@
           "billing_mode": "per_second",
           "pricing": {
             "per_second": 0.08,
+            "per_call_surcharge": 0.001,
+            "per_input_image": 0.01,
             "default_duration_seconds": 8,
             "max_duration_seconds": 15
           }
@@ -5410,7 +5893,7 @@
           ],
           "billing_mode": "per_image",
           "pricing": {
-            "per_image": 0.015
+            "per_image": 0.01575
           }
         }
       }
@@ -5509,7 +5992,7 @@
       "id": "zai/glm-5.1",
       "name": "GLM-5.1",
       "provider": "zai",
-      "description": "Z.AI flagship — #1 open source on SWE-Bench Pro, 8-hour autonomous execution. 200K context",
+      "description": "Z.AI's GLM-5.1 — #1 open source on SWE-Bench Pro, 8-hour autonomous execution. 200K context",
       "lifecycle": "active",
       "declared_capabilities": [
         "chat",
